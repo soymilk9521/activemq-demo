@@ -25,7 +25,8 @@ public class JmsConsumerTx {
         connection.start();
         // 3. 创建会话session
         // 两个参数，第一个叫事物，第二个叫签收
-        Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
+        // Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE); // 自动签收
+        Session session = connection.createSession(true, Session.CLIENT_ACKNOWLEDGE); // 手动签收
         // 4. 创建目的地（具体是队列还是主题topic）
         Queue queue = session.createQueue(QUEUE_NAME);
         // 5. 创建消费者
@@ -44,6 +45,7 @@ public class JmsConsumerTx {
                     TextMessage textMessage = (TextMessage) message;
                     try {
                         System.out.println("******tx 消费者接收消息： " + textMessage.getText());
+//                        textMessage.acknowledge();// 手动签收
                     } catch (JMSException e) {
                         e.printStackTrace();
                     }
