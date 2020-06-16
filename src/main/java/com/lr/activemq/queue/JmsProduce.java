@@ -14,7 +14,8 @@ import javax.jms.*;
  */
 public class JmsProduce {
 
-    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61616";
+//    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61616";
+    public static final String ACTIVEMQ_URL = "tcp://localhost:61616";
     private static final String QUEUE_NAME = "queue01";
 
     public static void main(String[] args) throws JMSException {
@@ -35,9 +36,9 @@ public class JmsProduce {
         // producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
         producer.setDeliveryMode(DeliveryMode.PERSISTENT);
         // 使用生产者发送消息
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 3; i++) {
             // 7. 创建消息
-            TextMessage textMessage = session.createTextMessage("MessageListener --> " + i);
+            TextMessage textMessage = session.createTextMessage("activeMQ broker --> " + i);
             // 8. 通过producer发送消息
             producer.send(textMessage);
         }
@@ -46,6 +47,6 @@ public class JmsProduce {
         session.close();
         connection.close();
 
-        System.out.println("****** 消息发布到MQ完成");
+        System.out.println("****** 消息发布到MQ完成 broker");
     }
 }
