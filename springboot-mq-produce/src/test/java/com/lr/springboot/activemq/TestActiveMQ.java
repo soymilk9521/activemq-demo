@@ -29,4 +29,9 @@ public class TestActiveMQ {
     public void testSend() {
         produce.produceMsg();
     }
+
+    @Test
+    public void testProduceMsgScheduled() {
+        produce.produceMsgScheduled();
+    }
 }

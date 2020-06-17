@@ -1,0 +1,13 @@
+server:
+  port: 5566
+
+spring:
+  activemq:
+    broker-url: tcp://192.168.80.71:61616 # MQ服务器地址
+    user: admin
+    password: admin
+  jms:
+    pub-sub-domain: true # false=Queue(默认) true = Topic
+
+# 自定义队列名称
+mytopic: springboot-activemq-topic

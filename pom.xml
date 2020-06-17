@@ -17,6 +17,9 @@
     <modules>
         <module>springboot-mq-produce</module>
         <module>basic-mq</module>
+        <module>springboot-mq-consumer</module>
+        <module>springboot-mq-topic-produce</module>
+        <module>springboot-mq-topic-consumer</module>
     </modules>
 
     <properties>

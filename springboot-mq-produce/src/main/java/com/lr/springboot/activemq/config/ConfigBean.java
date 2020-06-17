@@ -17,7 +17,7 @@ import javax.jms.Queue;
  * @since 2020/06/16 22:20
  */
 @Component
-@EnableJms // 开启jms注解
+//@EnableJms // 开启jms注解
 public class ConfigBean {
     @Value("${myqueue}")
     private String myQueue;
