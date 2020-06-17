@@ -14,8 +14,10 @@ import java.io.IOException;
  * @since 2020/06/13 14:13
  */
 public class JmsConsumer {
-//    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61616";
-    public static final String ACTIVEMQ_URL = "tcp://localhost:61616";
+//    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61616"; // tcp
+//    public static final String ACTIVEMQ_URL = "tcp://localhost:61616"; // broker
+//    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61618"; // nio
+    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61608"; // auto+nio
     private static final String QUEUE_NAME = "queue01";
 
     public static void main(String[] args) throws JMSException, IOException {
