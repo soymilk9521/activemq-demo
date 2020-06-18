@@ -17,8 +17,9 @@ public class JmsProduce {
     //    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61616"; // tcp
     //    public static final String ACTIVEMQ_URL = "tcp://localhost:61616"; // broker
     //    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61618"; // nio
-    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61608"; // auto+nio
-    private static final String QUEUE_NAME = "queue01";
+//    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61608"; // auto+nio
+    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61616"; // jdbc
+    private static final String QUEUE_NAME = "jdbc01";
 
     public static void main(String[] args) throws JMSException {
 
@@ -35,20 +36,21 @@ public class JmsProduce {
         // 5. 创建消息的生产者
         MessageProducer producer = session.createProducer(queue);
         // 持久化模式
-        // producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
         producer.setDeliveryMode(DeliveryMode.PERSISTENT);
+        // producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
         // 使用生产者发送消息
         for (int i = 0; i < 3; i++) {
             // 7. 创建消息
-            TextMessage textMessage = session.createTextMessage("activeMQ broker --> " + i);
+            TextMessage textMessage = session.createTextMessage("activeMQ jdbc --> " + i);
             // 8. 通过producer发送消息
             producer.send(textMessage);
         }
+        // session.commit();
         // 9. 关闭资源
         producer.close();
         session.close();
         connection.close();
 
-        System.out.println("****** 消息发布到MQ完成 broker");
+        System.out.println("****** 消息发布到MQ完成 jdbc");
     }
 }

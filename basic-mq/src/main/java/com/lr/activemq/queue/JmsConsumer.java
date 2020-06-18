@@ -17,8 +17,9 @@ public class JmsConsumer {
 //    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61616"; // tcp
 //    public static final String ACTIVEMQ_URL = "tcp://localhost:61616"; // broker
 //    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61618"; // nio
-    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61608"; // auto+nio
-    private static final String QUEUE_NAME = "queue01";
+//    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61608"; // auto+nio
+    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61616"; // jdbc
+    private static final String QUEUE_NAME = "jdbc01";
 
     public static void main(String[] args) throws JMSException, IOException {
         System.out.println("我是1号消费者");
@@ -46,13 +47,14 @@ public class JmsConsumer {
         consumer.close();
         session.close();
         connection.close();*/
+
         // 消息监听方式
         consumer.setMessageListener(new MessageListener() {
             public void onMessage(Message message) {
                 if (message != null && message instanceof TextMessage) {
                     TextMessage textMessage = (TextMessage) message;
                     try {
-                        System.out.println("******消费者接收消息 broker： " + textMessage.getText());
+                        System.out.println("******消费者接收消息 jdbc： " + textMessage.getText());
                     } catch (JMSException e) {
                         e.printStackTrace();
                     }

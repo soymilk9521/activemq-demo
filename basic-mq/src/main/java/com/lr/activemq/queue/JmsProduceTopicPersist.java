@@ -14,7 +14,7 @@ import javax.jms.*;
  */
 public class JmsProduceTopicPersist {
     public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61616";
-    private static final String TOPIC_NAME = "topic_persist";
+    private static final String TOPIC_NAME = "topic_jdbc_persist";
 
     public static void main(String[] args) throws JMSException {
 
@@ -35,7 +35,7 @@ public class JmsProduceTopicPersist {
         // 使用生产者发送消息
         for (int i = 0; i < 3; i++) {
             // 7. 创建消息
-            TextMessage textMessage = session.createTextMessage("topic_persist --> " + i);
+            TextMessage textMessage = session.createTextMessage("topic_jdbc_persist --> " + i);
             // 8. 通过producer发送消息
             producer.send(textMessage);
         }
@@ -44,6 +44,6 @@ public class JmsProduceTopicPersist {
         session.close();
         connection.close();
 
-        System.out.println("****** topic_persist消息发布到MQ完成");
+        System.out.println("****** topic_jdbc_persist消息发布到MQ完成");
     }
 }

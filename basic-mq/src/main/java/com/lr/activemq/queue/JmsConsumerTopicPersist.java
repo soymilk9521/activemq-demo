@@ -15,7 +15,7 @@ import java.io.IOException;
  */
 public class JmsConsumerTopicPersist {
     public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61616";
-    private static final String TOPIC_NAME = "topic_persist";
+    private static final String TOPIC_NAME = "topic_jdbc_persist";
 
     public static void main(String[] args) throws JMSException, IOException {
         System.out.println("*****z4");
@@ -30,12 +30,12 @@ public class JmsConsumerTopicPersist {
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
         // 4. 创建目的地（具体是队列还是主题topic）
         Topic topic = session.createTopic(TOPIC_NAME);
-        TopicSubscriber topicSubscriber = session.createDurableSubscriber(topic, "remark...");
+        TopicSubscriber topicSubscriber = session.createDurableSubscriber(topic, "topic_jdbc_persist remark...");
 
         Message message = topicSubscriber.receive();
         while (message != null) {
             TextMessage textMessage = (TextMessage) message;
-            System.out.println("******收到的持久化message" + textMessage.getText());
+            System.out.println("******收到的持久化topic_jdbc_persist" + textMessage.getText());
             message = topicSubscriber.receive(3000L);
         }
         session.close();
