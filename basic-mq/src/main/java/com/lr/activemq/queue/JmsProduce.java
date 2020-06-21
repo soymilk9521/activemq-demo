@@ -14,17 +14,20 @@ import javax.jms.*;
  */
 public class JmsProduce {
 
-    //    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61616"; // tcp
+//        public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61616"; // tcp
     //    public static final String ACTIVEMQ_URL = "tcp://localhost:61616"; // broker
     //    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61618"; // nio
-//    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61608"; // auto+nio
-    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61616"; // jdbc
-    private static final String QUEUE_NAME = "jdbc01";
+//    public static final String ACTIVEMQ_URL = "nio://192.168.80.71:61608"; // auto+nio
+//    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61616"; // jdbc
+//    public static final String ACTIVEMQ_URL = "failover:(tcp://192.168.80.71:61616,tcp://192.168.80.71:61617,tcp://192.168.80.71:61618)"; // LevelDB
+    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61616?jms.useAsyncSend=true"; // 开启异步投递
+    private static final String QUEUE_NAME = "queue01";
 
     public static void main(String[] args) throws JMSException {
 
         // 1. 创建连接工场, 按照给第的URL地址，采用默认的用户名和密码
         ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory(ACTIVEMQ_URL);
+        // factory.setUseAsyncSend(true); // 开启异步投递
         // 2. 通过连接工场，获得连接connection并启动访问
         Connection connection = factory.createConnection();
         connection.start();
@@ -41,7 +44,7 @@ public class JmsProduce {
         // 使用生产者发送消息
         for (int i = 0; i < 3; i++) {
             // 7. 创建消息
-            TextMessage textMessage = session.createTextMessage("activeMQ jdbc --> " + i);
+            TextMessage textMessage = session.createTextMessage("leveldb --> " + i);
             // 8. 通过producer发送消息
             producer.send(textMessage);
         }
@@ -51,6 +54,6 @@ public class JmsProduce {
         session.close();
         connection.close();
 
-        System.out.println("****** 消息发布到MQ完成 jdbc");
+        System.out.println("****** 消息发布到MQ完成 leveldb");
     }
 }

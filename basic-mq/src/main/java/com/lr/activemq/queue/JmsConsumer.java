@@ -14,13 +14,13 @@ import java.io.IOException;
  * @since 2020/06/13 14:13
  */
 public class JmsConsumer {
-//    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61616"; // tcp
+    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61616"; // tcp
 //    public static final String ACTIVEMQ_URL = "tcp://localhost:61616"; // broker
 //    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61618"; // nio
 //    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61608"; // auto+nio
-    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61616"; // jdbc
-    private static final String QUEUE_NAME = "jdbc01";
-
+//    public static final String ACTIVEMQ_URL = "tcp://192.168.80.71:61616"; // jdbc
+//    public static final String ACTIVEMQ_URL = "failover:(tcp://192.168.80.71:61616,tcp://192.168.80.71:61617,tcp://192.168.80.71:61618)"; // LevelDB
+    private static final String QUEUE_NAME = "queue-delay";
     public static void main(String[] args) throws JMSException, IOException {
         System.out.println("我是1号消费者");
         // 1. 创建连接工场, 按照给第的URL地址，采用默认的用户名和密码
@@ -54,7 +54,7 @@ public class JmsConsumer {
                 if (message != null && message instanceof TextMessage) {
                     TextMessage textMessage = (TextMessage) message;
                     try {
-                        System.out.println("******消费者接收消息 jdbc： " + textMessage.getText());
+                        System.out.println("******消费者接收消息 queue-delay： " + textMessage.getText());
                     } catch (JMSException e) {
                         e.printStackTrace();
                     }
